@@ -1,0 +1,26 @@
+server:
+  port: 8080
+# 整合druid数据源
+spring:
+  datasource:
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql:///fengmimall
+      username: root
+      password: Qq@@5627596
+      #初始化连接
+      initial-size: 20
+      #最大连接数量
+      max-active: 50
+      #最小空闲连接
+      min-idle: 10
+      #超时等待时间
+      max-wait: 5000
+
+
+mybatis-plus:
+  #如果mapper映射文件与mapper接口不在同一级那么需要进行制定
+  mapper-locations: classpath*:com/qf/mapper/*.xml
+  type-aliases-package: com.qf.pojo
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

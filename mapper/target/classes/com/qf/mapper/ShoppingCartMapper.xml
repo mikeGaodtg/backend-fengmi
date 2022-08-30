@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.mapper.ShoppingCartMapper">
+
+    <resultMap id="shoppingCartMap" type="ShoppingCart">
+        <id column="cart_id" property="cartId"></id>
+        <result column="product_id" property="productId"></result>
+        <result column="sku_id" property="skuId"></result>
+        <result column="user_id" property="userId"></result>
+        <result column="cart_num" property="cartNum"></result>
+        <result column="cart_time" property="cartTime"></result>
+        <result column="product_price" property="productPrice"></result>
+        <result column="sku_props" property="skuProps"></result>
+        <association property="users" javaType="Users">
+            <id column="user_id" property="userId"></id>
+            <result column="username" property="username"></result>
+        </association>
+        <association property="product" javaType="Product">
+            <id column="product_id" property="productId"></id>
+            <result column="product_name" property="productName"></result>
+        </association>
+        <association property="productSku" javaType="ProductSku">
+            <id column="sku_id" property="skuId"></id>
+            <result column="sku_name" property="skuName"></result>
+            <result column="sell_price" property="sellPrice"></result>
+        </association>
+    </resultMap>
+
+    <select id="selectShoppingCarts" resultMap="shoppingCartMap">
+         SELECT sc.*,u.*,p.*,ps.*
+        FROM shopping_cart sc
+        LEFT JOIN users u on sc.user_id=u.user_id
+        LEFT JOIN product_img pi on sc.product_id=pi.item_id
+        LEFT JOIN product p on sc.product_id=p.product_id
+				JOIN product_sku ps ON ps.product_id=p.product_id
+        where sc.user_id=#{userId}
+    </select>
+</mapper>

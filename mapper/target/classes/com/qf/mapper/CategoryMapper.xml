@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.mapper.CategoryMapper">
+
+<!--    <resultMap id="CategoryMap" type="Category">-->
+<!--        <id property="categoryId" column="category_id1"/>-->
+<!--        <result property="categoryName" column="category_name1"/>-->
+<!--        <result property="categoryLevel " column="category_level1"/>-->
+<!--        <result property="parentId" column="parent_id1"/>-->
+<!--        <result property="categoryIcon" column="category_icon1"/>-->
+<!--        <result property="categorySlogan" column="category_slogan1"/>-->
+<!--        <result property="categoryPic" column="category_pic1"/>-->
+<!--        <result property="categoryBgColor" column="category_bg_color1"/>-->
+<!--        <collection property="categoryList" ofType="Category">-->
+<!--            <id property="categoryId" column="category_id2"/>-->
+<!--            <result property="categoryName" column="category_name2"/>-->
+<!--            <result property="categoryLevel " column="category_level2"/>-->
+<!--            <result property="parentId" column="parent_id2"/>-->
+<!--            <collection property="categoryList" ofType="Category">-->
+<!--                <id property="categoryId" column="category_id3"/>-->
+<!--                <result property="categoryName" column="category_name3"/>-->
+<!--                <result property="categoryLevel " column="category_level3"/>-->
+<!--                <result property="parentId" column="parent_id3"/>-->
+<!--            </collection>-->
+<!--        </collection>-->
+<!--    </resultMap>-->
+    <resultMap id="CategoryMap" type="CateGoRy">
+        <!--一级分类-->
+        <id property="categoryId" column="category_id1"></id>
+        <result property="categoryName" column="category_name1"></result>
+        <result property="categoryLevel" column="category_level1"></result>
+        <result property="parentId" column="parent_id1"></result>
+        <result property="categoryIcon" column="category_icon1"></result>
+        <result property="categorySlogan" column="category_slogan1"></result>
+        <result property="categoryPic" column="category_pic1"></result>
+        <result property="categoryBgColor" column="category_bg_color1"></result>
+        <!--二级分类-->
+        <collection property="categoryList" ofType="Category">
+            <id property="categoryId" column="category_id2"></id>
+            <result property="categoryName" column="category_name2"></result>
+            <result property="categoryLevel" column="category_level2"></result>
+            <result property="parentId" column="parent_id2"></result>
+            <!--三级分类-->
+            <collection property="categoryList" ofType="Category">
+                <id property="categoryId" column="category_id3"></id>
+                <result property="categoryName" column="category_name3"></result>
+                <result property="categoryLevel" column="category_level3"></result>
+                <result property="parentId" column="parent_id3"></result>
+            </collection>
+        </collection>
+    </resultMap>
+
+
+
+    <select id="selectCategory" resultMap="CategoryMap">
+        select
+            c1.category_id 'category_id1',
+            c1.category_name 'category_name1',
+            c1.category_level 'category_level1',
+            c1.parent_id 'parent_id1',
+            c1.category_icon 'category_icon1',
+            c1.category_slogan 'category_slogan1',
+            c1.category_pic 'category_pic1',
+            c1.category_bg_color 'category_bg_color1',
+            c2.category_id 'category_id2',
+            c2.category_name 'category_name2',
+            c2.category_level 'category_level2',
+            c2.parent_id 'parent_id2',
+            c3.category_id 'category_id3',
+            c3.category_name 'category_name3',
+            c3.category_level 'category_level3',
+            c3.parent_id 'parent_id3'
+         from category c1
+                 left join category c2
+                           on c2.parent_id=c1.category_id
+                 left join category c3
+                           on c3.parent_id=c2.category_id
+        where c1.category_level=1
+    </select>
+</mapper>

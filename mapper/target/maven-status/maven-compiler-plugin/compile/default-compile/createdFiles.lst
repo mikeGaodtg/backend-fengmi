@@ -1,0 +1,11 @@
+com\qf\mapper\OrdersMapper.class
+com\qf\mapper\ProductCommentsMapper.class
+com\qf\mapper\UserAddrMapper.class
+com\qf\mapper\ProductImgMapper.class
+com\qf\mapper\ShoppingCartMapper.class
+com\qf\mapper\ProductMapper.class
+com\qf\mapper\ProductParamsMapper.class
+com\qf\mapper\ProductSkuMapper.class
+com\qf\mapper\CategoryMapper.class
+com\qf\mapper\UsersMapper.class
+com\qf\mapper\IndexImgMapper.class
